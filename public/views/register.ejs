@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+    <title>Register</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/styles/signin.css">
+    <link rel="stylesheet" href="/styles/css/bootstrap.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript">
+
+        function submitData(){
+            var firstname = document.getElementById('firstname').value;
+            var middlename = document.getElementById('middlename').value;
+            var lastname = document.getElementById('lastname').value;
+            var email = document.getElementById('email').value;
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var confirmpass = document.getElementById('confirmpass').value;
+            if(password == confirmpass){
+                $.ajax({
+                    type: 'POST',
+                    url: '/register/addUser',
+                    data: { 'firstname' : firstname,
+                            'middlename' : middlename,
+                            'lastname' : lastname,
+                            'email' : email,
+                            'username' : username,
+                            'password': password},
+                    dataType: 'json',
+                    complete: function(){
+                       document.location= '/';
+                    }
+                });
+            }
+            else{
+                alert('Please Confirm Password.');
+            }
+       }
+    </script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+        <div class="form-signin">
+        <h2 class="form-signin-heading">Fill up Form</h2>
+        <input type="text" class="form-control" placeholder='First Name' id="firstname" autofocus>
+         <input type="text" class="form-control" placeholder='Middle Name' id="middlename">
+        <input type='text' placeholder='Last Name' id="lastname" class="form-control">
+        <input type='text' placeholder='Email Address' id="email" class="form-control">
+        <input type='text' placeholder='Username' id="username" class="form-control">
+        <input type='password' placeholder='Password' id= "password" class="form-control">
+        <input type='password' placeholder='Confirm Password' id="confirmpass" class="form-control">
+        <button onclick="submitData()" class="btn btn-lg btn-primary btn-block">Submit</button>
+        </div>
+
+    </div> <!-- /container -->
+    <div class = "form-signin">
+      <h2 class="form-signin-heading">Don't Have an Account?</h2>
+      <button class="btn btn-lg btn-primary btn-block" onclick="/register">Submit</button>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+    <title>Edit Account</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/styles/css/bootstrap.css">
+
+    <!-- Custom styles for this template -->
+    <link href="/styles/jumbotron.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/signin.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript">
+
+        function submitData(id){
+            var firstname = document.getElementById('firstname').value;
+            var middlename = document.getElementById('middlename').value;
+            var lastname = document.getElementById('lastname').value;
+            var email = document.getElementById('email').value;
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var confirmpass = document.getElementById('confirmpass').value;
+            if(password == confirmpass){
+                $.ajax({
+                    type: 'POST',
+                    url: '/accountSettings/updateUser/'+id,
+                    data: { 'firstname' : firstname,
+                            'middlename' : middlename,
+                            'lastname' : lastname,
+                            'email' : email,
+                            'username' : username,
+                            'password': password},
+                    dataType: 'json',
+                    complete: function(){
+                       document.location= '/accountSettings';
+                    }
+                });
+            }
+            else{
+                alert('Please Confirm Password.');
+            }
+       }
+    </script>     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">SpeakUpYourMind</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href='/home'>Home</a></li>
+            <li><a href='/profile'>Profile</a></li>
+            <li><a href="/accountSettings">Edit Account</a></li>
+            <li><a href='/logout'>Logout</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="container">
+        <div class="form-signin">
+        <h2 class="form-signin-heading">User Details</h2>
+        <input type="text" class="form-control" value='<%=firstname%>' id="firstname" autofocus>
+         <input type="text" class="form-control" value='<%=middlename%>' id="middlename">
+        <input type='text' value='<%=lastname%>' id="lastname" class="form-control">
+        <input type='text' value='<%=email%>' id="email" class="form-control">
+        <input type='text' value='<%=username%>' id="username" class="form-control">
+        <input type='password' value='<%=password%>' id= "password" class="form-control">
+        <input type='password' value='<%=password%>' id="confirmpass" class="form-control">
+        <button onclick="submitData('<%=id%>')" class="btn btn-lg btn-primary btn-block">Submit</button>
+        <a href='/accountSettings/deleteAcc/<%=id%>' class="btn btn-lg btn-primary btn-block">DELETE ACCOUNT</a>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/scripts/jquery.js"></script>
+    <script type="text/javascript" src='/scripts/bootstrap.js'></script>
+    <script type="text/javascript" src='/scripts/bootstrap.min.js'></script>  
+    </body>
+</html>
